@@ -1,5 +1,6 @@
 import { Router } from "express";
 import profileRoutes from "./profile.routes.js";
+import expenseRoutes from "./expense.routes.js";
 
 const router = Router();
 
@@ -11,5 +12,6 @@ router.get("/health", (req, res) => {
 });
 
 router.use("/profile", profileRoutes);
+router.use("/expenses", expenseRoutes);
 
 export default router;
