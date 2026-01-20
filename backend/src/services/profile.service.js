@@ -57,7 +57,7 @@ export const createOrUpdateProfileService = async (clerkUserId, payload) => {
   return profile;
 };
 
-// ✅ THIS EXPORT WAS MISSING
+
 export const getMyProfileService = async (clerkUserId) => {
   const profile = await User.findOne({ clerkUserId });
 
