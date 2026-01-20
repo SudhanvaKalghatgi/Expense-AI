@@ -3,6 +3,7 @@ import profileRoutes from "./profile.routes.js";
 import expenseRoutes from "./expense.routes.js";
 import recurringRoutes from "./recurring.routes.js";
 import reportRoutes from "./report.routes.js";
+import devRoutes from "./dev.routes.js";
 
 const router = Router();
 
@@ -17,5 +18,6 @@ router.use("/profile", profileRoutes);
 router.use("/expenses", expenseRoutes);
 router.use("/recurring", recurringRoutes);
 router.use("/reports", reportRoutes);
+router.use("/dev", devRoutes);
 
 export default router;
