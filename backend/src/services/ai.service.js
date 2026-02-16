@@ -34,48 +34,54 @@ const buildPrompt = ({ month, year, current, previous, comparison, profile }) =>
   const paymentMode = current?.paymentModeBreakdown || {};
 
   return `
-You are a personal finance assistant for an expense tracker app.
-Generate a short, friendly monthly review (practical + not judgmental).
+You are a friendly personal finance assistant analyzing spending data for a user.
 
 User profile:
 - Name: ${profile?.fullName || "User"}
-- Type: ${profile?.userType || "unknown"}
-- Monthly income: ${profile?.monthlyIncome ?? "not provided"}
-- Monthly budget: ${profile?.monthlyBudget ?? "not provided"}
-- Saving target: ${profile?.savingTarget ?? "not provided"}
+- Type: ${profile?.userType || "individual"}
+- Monthly income: $${profile?.monthlyIncome ?? "not provided"}
+- Monthly budget: $${profile?.monthlyBudget ?? "not provided"}
+- Saving target: $${profile?.savingTarget ?? "not provided"}
 
 Month: ${month}/${year}
 
-Current month:
-- Total spend: ${totalExpense}
+Current month spending:
+- Total: $${totalExpense}
 - Transactions: ${current?.totalTransactions ?? 0}
+- Categories: ${JSON.stringify(categoryBreakdown)}
+- Needs vs Wants: ${JSON.stringify(needVsWant)}
+- Payment methods: ${JSON.stringify(paymentMode)}
 
-Category breakdown:
-${JSON.stringify(categoryBreakdown)}
+Previous month: $${prevExpense}
+Change: ${comparison?.changeType || "no_change"}
 
-Need vs Want breakdown:
-${JSON.stringify(needVsWant)}
+INSTRUCTIONS:
+1. Analyze the spending patterns thoughtfully
+2. If spending is $0, encourage the user to start tracking expenses
+3. Compare against budget if provided
+4. Be supportive and constructive, not judgmental
+5. Keep language natural and conversational
+6. DO NOT use markdown formatting (no **, __, [], etc.) - just plain text
+7. Be specific with numbers and percentages
 
-Payment mode breakdown:
-${JSON.stringify(paymentMode)}
-
-Previous month spend: ${prevExpense}
-Comparison:
-${JSON.stringify(comparison || {})}
-
-IMPORTANT:
-- If total spend is 0, encourage user to start tracking and suggest simple steps.
-- Keep it short and very useful.
-
-Return ONLY valid JSON (no markdown, no extra text):
+Return ONLY valid JSON (no markdown wrapper, no extra text):
 {
-  "headline": "string",
-  "score": number (0-10),
-  "summary": "2-3 lines",
-  "highlights": ["3 bullets"],
-  "risks": ["2 bullets"],
-  "actionPlan": ["3 steps"]
+  "headline": "A catchy, encouraging one-line summary (plain text, no formatting)",
+  "score": number between 0-10,
+  "summary": "2-3 sentence overview with specific numbers and insights",
+  "highlights": ["3 positive observations about their spending", "Include specific amounts", "Be encouraging"],
+  "risks": ["2 areas of concern or potential issues", "Be specific about the problem"],
+  "actionPlan": ["3 concrete, actionable steps", "Be specific and practical", "Include numbers if relevant"]
 }
+
+Example good responses:
+- "You spent $500 on dining, which is 40% of your budget"
+- "Great job staying under budget by $200"
+- "Consider reducing entertainment spending by $50 per week"
+
+Example BAD responses (avoid these):
+- "**Great job**" (no markdown)
+- "You spent too much" (too vague, provide numbers)
 `;
 };
 

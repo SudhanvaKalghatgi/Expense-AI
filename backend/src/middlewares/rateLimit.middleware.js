@@ -2,7 +2,7 @@ import rateLimit from "express-rate-limit";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 export const apiRateLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 2 * 60 * 1000, // 15 minutes
   max: 100, // max requests per IP per window
   standardHeaders: true, // Return rate limit info in headers
   legacyHeaders: false,
