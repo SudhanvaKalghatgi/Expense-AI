@@ -86,7 +86,7 @@ export default function Reports() {
   return (
     <div className="space-y-12">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <h1 className="text-display mb-2">Reports</h1>
           <p className="text-sm text-muted-foreground">
@@ -95,11 +95,11 @@ export default function Reports() {
         </div>
 
         {/* Month/Year Selector */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          <div className="flex items-center gap-2 flex-1 md:flex-none">
             <Label className="text-sm">Month:</Label>
             <Select value={month.toString()} onValueChange={(v) => setMonth(Number(v))}>
-              <SelectTrigger className="w-[120px]">
+              <SelectTrigger className="w-full md:w-[120px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -112,10 +112,10 @@ export default function Reports() {
             </Select>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-1 md:flex-none">
             <Label className="text-sm">Year:</Label>
             <Select value={year.toString()} onValueChange={(v) => setYear(Number(v))}>
-              <SelectTrigger className="w-[100px]">
+              <SelectTrigger className="w-full md:w-[100px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -131,25 +131,25 @@ export default function Reports() {
       </div>
 
       {/* Summary Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 border-t border-b border-border/50 divide-x divide-border/50">
-        <div className="p-12 space-y-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 border-t border-b border-border/50 divide-y md:divide-y-0 md:divide-x divide-border/50">
+        <div className="p-6 md:p-12 space-y-3">
           <div className="text-label text-muted-foreground">TOTAL SPENT</div>
-          <div className="text-hero">₹{totalSpending.toFixed(0)}</div>
+          <div className="text-hero text-4xl md:text-[4.5rem]">₹{totalSpending.toFixed(0)}</div>
           <div className="text-xs text-muted-foreground">This month</div>
         </div>
 
-        <div className="p-12 space-y-3">
+        <div className="p-6 md:p-12 space-y-3">
           <div className="text-label text-muted-foreground">AVG PER DAY</div>
-          <div className="text-hero">₹{(totalSpending / 30).toFixed(0)}</div>
+          <div className="text-hero text-4xl md:text-[4.5rem]">₹{(totalSpending / 30).toFixed(0)}</div>
           <div className="flex items-center gap-1 text-xs text-accent">
             <TrendingDown className="h-3 w-3" />
             <span>Based on monthly total</span>
           </div>
         </div>
 
-        <div className="p-12 space-y-3">
+        <div className="p-6 md:p-12 space-y-3">
           <div className="text-label text-muted-foreground">TRANSACTIONS</div>
-          <div className="text-hero">{transactionCount}</div>
+          <div className="text-hero text-4xl md:text-[4.5rem]">{transactionCount}</div>
           <div className="text-xs text-muted-foreground">This month</div>
         </div>
       </div>
@@ -187,7 +187,7 @@ export default function Reports() {
       {/* Payment Methods */}
       <div className="space-y-6">
         <div className="text-section">Payment Methods</div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {report.paymentModeBreakdown && Object.entries(report.paymentModeBreakdown).map(([method, amount]) => (
             <div
               key={method}

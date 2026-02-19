@@ -69,8 +69,8 @@ export default function Settings() {
       {/* Profile Information */}
       <div className="space-y-6">
         <div className="text-section">Profile Information</div>
-        
-        <div className="border border-border/50 rounded-lg p-8 space-y-6">
+
+        <div className="border border-border/50 rounded-lg p-6 md:p-8 space-y-6">
           <div className="flex items-center gap-4">
             <div className="h-16 w-16 rounded-full bg-muted flex items-center justify-center">
               <UserCircle className="h-8 w-8 text-muted-foreground" />
@@ -108,8 +108,8 @@ export default function Settings() {
       {/* Financial Settings */}
       <div className="space-y-6">
         <div className="text-section">Financial Settings</div>
-        
-        <div className="border border-border/50 rounded-lg p-8 space-y-6">
+
+        <div className="border border-border/50 rounded-lg p-6 md:p-8 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-2">
               <Label className="text-label text-muted-foreground">MONTHLY INCOME</Label>
@@ -135,10 +135,10 @@ export default function Settings() {
 
           <div className="space-y-2">
             <Label className="text-label text-muted-foreground">TRACKING MODE</Label>
-            <Input 
-              value={profile.incomeTrackingMode === "fixedIncome" ? "Fixed Income" : "Expenses Only"} 
-              readOnly 
-              className="bg-muted/30" 
+            <Input
+              value={profile.incomeTrackingMode === "fixedIncome" ? "Fixed Income" : "Expenses Only"}
+              readOnly
+              className="bg-muted/30"
             />
           </div>
         </div>
@@ -148,8 +148,8 @@ export default function Settings() {
       {user && (
         <div className="space-y-6">
           <div className="text-section">Account Info</div>
-          
-          <div className="border border-border/50 rounded-lg p-8 space-y-4">
+
+          <div className="border border-border/50 rounded-lg p-6 md:p-8 space-y-4">
             <div className="flex items-center gap-2 text-sm">
               <Mail className="h-4 w-4 text-muted-foreground" />
               <span className="text-muted-foreground">Primary Email:</span>
@@ -160,12 +160,12 @@ export default function Settings() {
               <Briefcase className="h-4 w-4 text-muted-foreground" />
               <span className="text-muted-foreground">Account Created:</span>
               <span>
-                {user.createdAt 
+                {user.createdAt
                   ? new Date(user.createdAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })
                   : "N/A"}
               </span>
             </div>
@@ -176,9 +176,9 @@ export default function Settings() {
       {/* Account Actions */}
       <div className="space-y-6">
         <div className="text-section">Account Actions</div>
-        
-        <div className="border border-border/50 rounded-lg p-8">
-          <div className="flex items-center justify-between">
+
+        <div className="border border-border/50 rounded-lg p-6 md:p-8">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
               <div className="font-medium">Sign Out</div>
               <div className="text-sm text-muted-foreground">
@@ -188,7 +188,7 @@ export default function Settings() {
             <Button
               onClick={handleLogout}
               variant="destructive"
-              className="gap-2"
+              className="gap-2 w-full md:w-auto"
             >
               <LogOut className="h-4 w-4" />
               Logout
@@ -200,8 +200,8 @@ export default function Settings() {
       {/* Developer Tools */}
       <div className="space-y-6">
         <div className="text-section">Developer Tools</div>
-        
-        <div className="border border-border/50 rounded-lg p-8 space-y-4">
+
+        <div className="border border-border/50 rounded-lg p-6 md:p-8 space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <div className="font-medium">Test Monthly Email</div>

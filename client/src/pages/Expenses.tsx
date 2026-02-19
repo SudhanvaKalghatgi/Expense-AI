@@ -140,7 +140,7 @@ export default function Expenses() {
     <>
       <div className="space-y-12">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
             <h1 className="text-display mb-2">Expenses</h1>
             <p className="text-sm text-muted-foreground">
@@ -149,7 +149,7 @@ export default function Expenses() {
           </div>
           <Button
             onClick={() => setIsDialogOpen(true)}
-            className="bg-foreground text-background hover:bg-foreground/90 rounded-full h-10 px-6"
+            className="bg-foreground text-background hover:bg-foreground/90 rounded-full h-10 px-6 w-full md:w-auto"
           >
             <Plus className="h-4 w-4 mr-2" />
             Add Expense
@@ -166,16 +166,16 @@ export default function Expenses() {
             {expenses.map((expense) => (
               <div
                 key={expense._id}
-                className="group py-6 border-b border-border/50 hover:bg-muted/20 transition-colors flex items-start justify-between"
+                className="group py-6 border-b border-border/50 hover:bg-muted/20 transition-colors flex items-start justify-between relative"
               >
                 <div className="flex-1 space-y-1">
-                  <div className="flex items-baseline gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
                     <div className="text-amount">
                       ₹{expense.amount.toFixed(0)}
                     </div>
                     <div className="text-sm font-medium">{expense.category}</div>
                   </div>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                     <span>{format(new Date(expense.date), "MMM d, yyyy")}</span>
                     {expense.paymentMode && (
                       <>
@@ -198,7 +198,7 @@ export default function Expenses() {
                 </div>
                 <button
                   onClick={() => deleteExpense(expense._id)}
-                  className="opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-destructive/10 rounded-md"
+                  className="opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-destructive/10 rounded-md absolute top-4 right-0 sm:static sm:top-auto sm:right-auto"
                 >
                   <Trash2 className="h-4 w-4 text-destructive" />
                 </button>
@@ -236,7 +236,7 @@ export default function Expenses() {
                   type="number"
                   step="0.01"
                   placeholder="0.00"
-                  className="text-4xl font-light h-16 border-0 border-b border-border/50 rounded-none px-0 focus-visible:ring-0 focus-visible:border-foreground"
+                  className="text-3xl md:text-4xl font-light h-16 border-0 border-b border-border/50 rounded-none px-0 focus-visible:ring-0 focus-visible:border-foreground"
                 />
                 {errors.amount && (
                   <p className="text-xs text-destructive">{errors.amount.message}</p>

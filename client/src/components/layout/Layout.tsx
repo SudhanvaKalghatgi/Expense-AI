@@ -28,9 +28,9 @@ export default function Layout() {
         <div className="h-16 flex items-center px-6">
           <Link to="/dashboard" className="inline-flex">
             <div className="bg-foreground px-3 py-1.5 rounded-lg shadow-premium-sm hover:shadow-premium transition-shadow">
-              <img 
-                src="/expenseAI.png" 
-                alt="ExpenseAI" 
+              <img
+                src="/expenseAI.png"
+                alt="ExpenseAI"
                 className="h-5 w-auto"
               />
             </div>
@@ -74,9 +74,9 @@ export default function Layout() {
         <div className="flex items-center justify-between h-full px-4">
           <Link to="/dashboard" className="inline-flex">
             <div className="bg-foreground px-3 py-1.5 rounded-lg shadow-premium-sm">
-              <img 
-                src="/expenseAI.png" 
-                alt="ExpenseAI" 
+              <img
+                src="/expenseAI.png"
+                alt="ExpenseAI"
                 className="h-5 w-auto"
               />
             </div>
@@ -126,7 +126,7 @@ export default function Layout() {
 
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto lg:pt-0 pt-16">
-        <div className="mx-auto max-w-[1400px] px-8 lg:px-16 py-12 lg:py-16">
+        <div className="mx-auto max-w-[1400px] px-4 md:px-8 lg:px-16 py-6 md:py-12 lg:py-16">
           <Outlet />
         </div>
       </main>

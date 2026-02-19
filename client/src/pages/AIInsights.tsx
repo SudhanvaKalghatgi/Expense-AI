@@ -57,7 +57,7 @@ export default function AIInsights() {
         // Backend returns { month, year, report, aiReview }
         const aiReviewData = res.data.data.aiReview;
         console.log("AI Review data:", aiReviewData);
-        
+
         // Clean up any markdown formatting
         const cleanedReview = {
           ...aiReviewData,
@@ -67,7 +67,7 @@ export default function AIInsights() {
           risks: aiReviewData.risks?.map((r: string) => cleanMarkdown(r)) || [],
           actionPlan: aiReviewData.actionPlan?.map((a: string) => cleanMarkdown(a)) || [],
         };
-        
+
         setReview(cleanedReview);
         toast.success("AI insights generated!");
       }
@@ -83,7 +83,7 @@ export default function AIInsights() {
   return (
     <div className="space-y-12">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="flex items-center gap-3">
           <Sparkles className="h-8 w-8" />
           <div>
@@ -95,11 +95,11 @@ export default function AIInsights() {
         </div>
 
         {/* Month/Year Selector */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          <div className="flex items-center gap-2 flex-1 md:flex-none">
             <Label className="text-sm">Month:</Label>
             <Select value={month.toString()} onValueChange={(v) => setMonth(Number(v))}>
-              <SelectTrigger className="w-[120px]">
+              <SelectTrigger className="w-full md:w-[120px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -112,10 +112,10 @@ export default function AIInsights() {
             </Select>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-1 md:flex-none">
             <Label className="text-sm">Year:</Label>
             <Select value={year.toString()} onValueChange={(v) => setYear(Number(v))}>
-              <SelectTrigger className="w-[100px]">
+              <SelectTrigger className="w-full md:w-[100px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -131,7 +131,7 @@ export default function AIInsights() {
           <Button
             onClick={fetchAIReview}
             disabled={loading}
-            className="bg-foreground text-background hover:bg-foreground/90 rounded-full"
+            className="bg-foreground text-background hover:bg-foreground/90 rounded-full w-full md:w-auto"
           >
             {loading ? "Generating..." : "Generate Insights"}
           </Button>
@@ -150,8 +150,8 @@ export default function AIInsights() {
       ) : (
         <>
           {/* Headline & Score */}
-          <div className="border border-border/50 rounded-lg p-12 space-y-6">
-            <div className="flex items-center justify-between">
+          <div className="border border-border/50 rounded-lg p-6 md:p-12 space-y-6">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               <h2 className="text-section">{review.headline || 'Financial Review'}</h2>
               <div className="flex items-center gap-2">
                 <span className="text-sm text-muted-foreground">Score:</span>

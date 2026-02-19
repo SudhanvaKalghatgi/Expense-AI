@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { Plus, Trash2, Calendar, DollarSign, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {  Label } from "@/components/ui/label";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -107,16 +107,16 @@ export default function Recurring() {
     } catch (error: any) {
       console.error("Failed to add recurring expense:", error);
       console.error("Error response:", error.response?.data);
-      
+
       // Display user-friendly error message
       const errorMessage = error.response?.data?.message || "Failed to add recurring expense";
       toast.error(errorMessage, {
         duration: 5000,
-        description: errorMessage.includes('nextDueDate') 
+        description: errorMessage.includes('nextDueDate')
           ? 'Please make sure the next billing date is not before today'
           : errorMessage.includes('vendor already exists')
-          ? 'Try updating the existing subscription instead'
-          : undefined
+            ? 'Try updating the existing subscription instead'
+            : undefined
       });
     } finally {
       setIsSubmitting(false);
@@ -174,7 +174,7 @@ export default function Recurring() {
     <>
       <div className="space-y-12">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
             <h1 className="text-display mb-2">Recurring Expenses</h1>
             <p className="text-sm text-muted-foreground">
@@ -183,7 +183,7 @@ export default function Recurring() {
           </div>
           <Button
             onClick={() => setIsDialogOpen(true)}
-            className="bg-foreground text-background hover:bg-foreground/90 rounded-full h-10 px-6"
+            className="bg-foreground text-background hover:bg-foreground/90 rounded-full h-10 px-6 w-full md:w-auto"
           >
             <Plus className="h-4 w-4 mr-2" />
             Add Subscription
@@ -191,19 +191,19 @@ export default function Recurring() {
         </div>
 
         {/* Summary Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 border-t border-b border-border/50 divide-x divide-border/50">
-          <div className="p-12 space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 border-t border-b border-border/50 divide-y md:divide-y-0 md:divide-x divide-border/50">
+          <div className="p-6 md:p-12 space-y-3">
             <div className="text-label text-muted-foreground">MONTHLY TOTAL</div>
-            <div className="text-hero">₹{totalMonthly.toFixed(0)}</div>
+            <div className="text-hero text-4xl md:text-[4.5rem]">₹{totalMonthly.toFixed(0)}</div>
             <div className="text-xs text-muted-foreground">
               {recurring.filter((r) => r.isActive && r.frequency === "monthly").length}{" "}
               active subscriptions
             </div>
           </div>
 
-          <div className="p-12 space-y-3">
+          <div className="p-6 md:p-12 space-y-3">
             <div className="text-label text-muted-foreground">YEARLY TOTAL</div>
-            <div className="text-hero">₹{totalYearly.toFixed(0)}</div>
+            <div className="text-hero text-4xl md:text-[4.5rem]">₹{totalYearly.toFixed(0)}</div>
             <div className="text-xs text-muted-foreground">
               {recurring.filter((r) => r.isActive && r.frequency === "yearly").length}{" "}
               active subscriptions
@@ -223,9 +223,9 @@ export default function Recurring() {
                 key={item._id}
                 className="group py-6 border-b border-border/50 hover:bg-muted/20 transition-colors"
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1 space-y-2">
-                    <div className="flex items-center gap-3">
+                <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
+                  <div className="flex-1 space-y-2 w-full">
+                    <div className="flex items-center justify-between sm:justify-start gap-3">
                       <div className="text-lg font-medium">{item.vendorName}</div>
                       <Badge
                         variant={item.isActive ? "default" : "outline"}
@@ -235,7 +235,7 @@ export default function Recurring() {
                       </Badge>
                     </div>
 
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
                       <DollarSign className="h-3 w-3" />
                       <span className="font-mono">${item.amount.toFixed(2)}</span>
                       <span>·</span>
@@ -257,10 +257,10 @@ export default function Recurring() {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex items-center gap-2 w-full sm:w-auto mt-4 sm:mt-0 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
                     <button
                       onClick={() => toggleActive(item._id)}
-                      className="px-3 py-1.5 text-xs rounded-md border border-border hover:bg-muted transition-colors"
+                      className="flex-1 sm:flex-none px-3 py-1.5 text-xs rounded-md border border-border hover:bg-muted transition-colors text-center"
                     >
                       {item.isActive ? "Pause" : "Activate"}
                     </button>

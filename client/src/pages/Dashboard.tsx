@@ -93,17 +93,17 @@ export default function Dashboard() {
   return (
     <div className="space-y-16">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <h1 className="text-display mb-2">Dashboard</h1>
           <p className="text-sm text-muted-foreground">
             Welcome back, {profile.fullName.split(" ")[0]}
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 w-full md:w-auto">
           <Button
             onClick={() => navigate("/expenses")}
-            className="bg-foreground text-background hover:bg-foreground/90 rounded-full h-10 px-6"
+            className="bg-foreground text-background hover:bg-foreground/90 rounded-full h-10 px-6 flex-1 md:flex-none"
           >
             <Plus className="h-4 w-4 mr-2" />
             Add Expense
@@ -125,19 +125,19 @@ export default function Dashboard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="grid grid-cols-1 md:grid-cols-3 border-t border-b border-border/50 divide-x divide-border/50"
+        className="grid grid-cols-1 md:grid-cols-3 border-t border-b border-border/50 divide-y md:divide-y-0 md:divide-x divide-border/50"
       >
         {/* Monthly Income */}
-        <div className="p-12 space-y-3">
+        <div className="p-6 md:p-12 space-y-3">
           <div className="text-label text-muted-foreground">MONTHLY INCOME</div>
-          <div className="text-hero">{formatCurrency(profile.monthlyIncome || 0)}</div>
+          <div className="text-hero text-4xl md:text-[4.5rem]">{formatCurrency(profile.monthlyIncome || 0)}</div>
           <div className="text-xs text-muted-foreground">Per month</div>
         </div>
 
         {/* This Month's Spending */}
-        <div className="p-12 space-y-3">
+        <div className="p-6 md:p-12 space-y-3">
           <div className="text-label text-muted-foreground">THIS MONTH</div>
-          <div className="text-hero">{formatCurrency(thisMonthSpending)}</div>
+          <div className="text-hero text-4xl md:text-[4.5rem]">{formatCurrency(thisMonthSpending)}</div>
           <div className="flex items-center gap-2 text-xs">
             <span className={remainingBudget >= 0 ? "text-accent" : "text-destructive"}>
               {formatCurrency(Math.abs(remainingBudget))} {remainingBudget >= 0 ? "remaining" : "over"}
@@ -146,9 +146,9 @@ export default function Dashboard() {
         </div>
 
         {/* Saving Target */}
-        <div className="p-12 space-y-3">
+        <div className="p-6 md:p-12 space-y-3">
           <div className="text-label text-muted-foreground">SAVING TARGET</div>
-          <div className="text-hero">{formatCurrency(profile.savingTarget || 0)}</div>
+          <div className="text-hero text-4xl md:text-[4.5rem]">{formatCurrency(profile.savingTarget || 0)}</div>
           <div className="text-xs text-muted-foreground">Target amount</div>
         </div>
       </motion.div>
@@ -162,7 +162,7 @@ export default function Dashboard() {
             const today = new Date();
             const dailySpending = Array(7).fill(0);
             const dayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-            
+
             // Group expenses by day
             expenses.forEach(expense => {
               const expenseDate = new Date(expense.date);
@@ -175,16 +175,16 @@ export default function Dashboard() {
             // Financial context from profile
             const monthlyBudget = profile?.monthlyBudget || 10000;
             const savingsTarget = profile?.savingTarget || 0;
-            
+
             // Use monthly budget as Y-axis scale
             const yAxisMax = monthlyBudget;
-            
+
             // Calculate line positions (as percentage of monthly budget)
             const savingsLineHeight = savingsTarget > 0 ? (savingsTarget / yAxisMax) * 100 : 0;
-            
+
             // Get today's day index
             const todayIndex = today.getDay();
-            
+
             // Create ordered labels
             const orderedLabels: string[] = [];
             for (let i = 6; i >= 0; i--) {
@@ -210,7 +210,7 @@ export default function Dashboard() {
                   <div className="flex-1 relative">
                     {/* Savings Target Line */}
                     {savingsTarget > 0 && (
-                      <div 
+                      <div
                         className="absolute left-0 right-0 border-t-2 border-dashed border-green-500 z-10"
                         style={{ bottom: `${savingsLineHeight}%` }}
                         title={`Savings Target: ₹${savingsTarget.toFixed(0)}`}
@@ -227,19 +227,19 @@ export default function Dashboard() {
                         // Height relative to monthly budget (Y-axis max)
                         const height = yAxisMax > 0 ? (amount / yAxisMax) * 100 : 0;
                         const hasData = amount > 0;
-                        
+
                         // Color: green for spending, gray for no data
-                        const barColor = hasData 
+                        const barColor = hasData
                           ? 'bg-green-500 border-green-600'
                           : 'bg-gray-200 border-gray-300';
-                        
+
                         return (
                           <div key={i} className="flex flex-col items-center gap-2 h-full justify-end">
                             <div
                               className={`w-full rounded-t border ${barColor}`}
                               style={{ height: `${Math.max(height, hasData ? 2 : 0)}%` }}
-                              title={hasData 
-                                ? `₹${amount.toFixed(0)} | ${((amount/yAxisMax)*100).toFixed(1)}% of monthly budget`
+                              title={hasData
+                                ? `₹${amount.toFixed(0)} | ${((amount / yAxisMax) * 100).toFixed(1)}% of monthly budget`
                                 : 'No spending'
                               }
                             />
@@ -269,7 +269,7 @@ export default function Dashboard() {
                       <div className="font-semibold">{formatCurrency(savingsTarget)}</div>
                     </div>
                   </div>
-                  
+
                   {/* Legend */}
                   <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
                     {savingsTarget > 0 && (
@@ -359,7 +359,7 @@ export default function Dashboard() {
         <div className="border border-border/50 rounded-lg p-6 space-y-2">
           <div className="text-label text-muted-foreground">BUDGET USED</div>
           <div className="text-3xl font-light">
-            {profile.monthlyBudget 
+            {profile.monthlyBudget
               ? `${Math.round((thisMonthSpending / profile.monthlyBudget) * 100)}%`
               : "N/A"
             }
