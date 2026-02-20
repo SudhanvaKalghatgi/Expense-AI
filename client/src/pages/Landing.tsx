@@ -59,7 +59,7 @@ export default function Landing() {
           </div>
 
           <div className="flex items-center gap-4">
-            <Button variant="ghost" onClick={() => navigate("/sign-in")} className="hover:bg-muted/50 rounded-full px-5">
+            <Button variant="ghost" onClick={() => navigate("/sign-in")} className="hover:bg-black/50 rounded-full px-5">
               Log in
             </Button>
             <Button onClick={handleGetStarted} className="rounded-full px-6 shadow-[0_0_20px_-5px_rgba(0,204,136,0.5)] hover:shadow-[0_0_25px_-5px_rgba(0,204,136,0.6)] transition-all duration-300">
