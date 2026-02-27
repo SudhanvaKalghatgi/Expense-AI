@@ -119,7 +119,7 @@ npm run dev
 ### Frontend Setup
 
 ```bash
-cd ../frontend
+cd ../client
 npm install
 ```
 
